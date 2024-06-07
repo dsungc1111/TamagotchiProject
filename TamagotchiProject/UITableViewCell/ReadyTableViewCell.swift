@@ -12,19 +12,19 @@ class ReadyTableViewCell: UITableViewCell {
     
     
     let readyImage1 = {
-        let image = UIImageView()
-        image.image = UIImage.no
-        return image
+        let button = UIButton()
+        button.setImage(UIImage.no, for: .normal)
+        return button
     }()
     let readyImage2 = {
-        let image = UIImageView()
-        image.image = UIImage.no
-        return image
+        let button = UIButton()
+        button.setImage(UIImage.no, for: .normal)
+        return button
     }()
     let readyImage3 = {
-        let image = UIImageView()
-        image.image = UIImage.no
-        return image
+        let button = UIButton()
+        button.setImage(UIImage.no, for: .normal)
+        return button
     }()
     var readyLabel1 = UILabel()
     var readyLabel2 = UILabel()

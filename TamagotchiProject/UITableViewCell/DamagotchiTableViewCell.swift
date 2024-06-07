@@ -16,6 +16,9 @@ class DamagotchiTableViewCell: UITableViewCell {
     let imageLabel1 = {
         let button = UIButton()
         button.setImage(UIImage._1_6, for: .normal)
+        button.tag = 0
+        
+        
         return button
     }()
     let imageLabel1Title = {
@@ -32,6 +35,7 @@ class DamagotchiTableViewCell: UITableViewCell {
     let imageLabel2 = {
         let button = UIButton()
         button.setImage(UIImage._2_6, for: .normal)
+        button.tag = 1
         return button
     }()
     let imageLabel2Title = {
@@ -48,6 +52,7 @@ class DamagotchiTableViewCell: UITableViewCell {
     let imageLabel3 = {
         let button = UIButton()
         button.setImage(UIImage._3_6, for: .normal)
+        button.tag = 2
         return button
     }()
     let imageLabel3Title = {

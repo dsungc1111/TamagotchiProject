@@ -32,7 +32,7 @@ class ReadyTableViewCell: UITableViewCell {
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: TamagotchiTableViewCell.identifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
         configureReadyLabel(label: readyLabel1)

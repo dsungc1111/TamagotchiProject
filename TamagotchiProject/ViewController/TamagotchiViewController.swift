@@ -33,7 +33,11 @@ class TamagotchiViewController: UIViewController {
     }()
     lazy var startButton = {
         let button = UIButton()
-        configureButton(button: button, title: "시작하기")
+        if SelectViewController.changeTamaCount == 0 {
+            configureButton(button: button, title: "시작하기")
+        } else {
+            configureButton(button: button, title: "변경하기")
+        }
         return button
     }()
     
@@ -57,9 +61,16 @@ class TamagotchiViewController: UIViewController {
         dismiss(animated: true)
     }
     @objc func startButtonTapped() {
-        let vc = MainViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        if SelectViewController.changeTamaCount == 0 {
+            let vc = (UINavigationController(rootViewController: NicknameViewController()))
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        } else {
+            let vc = (UINavigationController(rootViewController: MainViewController()))
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
+        
     }
     
     

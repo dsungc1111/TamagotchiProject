@@ -11,6 +11,14 @@ import SnapKit
 
 class TamagotchiTableViewCell: UITableViewCell {
 
+    
+    enum Character {
+        typealias RawValue = String
+        
+        static var cactus = "따끔따끔 다마고치"
+        static var sun = "방실방실 다마고치"
+        static var star = "반짝반짝 다마고치"
+    }
     static func configureTamagotchiLabel(label: UILabel, fontSize: CGFloat) {
         label.font = .systemFont(ofSize: fontSize)
         label.layer.borderColor = UIColor.borderColor.cgColor
@@ -23,46 +31,44 @@ class TamagotchiTableViewCell: UITableViewCell {
     let imageLabel1 = {
         let button = UIButton()
         button.setImage(UIImage._1_6, for: .normal)
-        button.tag = 0
-        
-        
+        button.tag = 1
         return button
     }()
     let imageLabel1Title = {
         let label = UILabel()
         TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 13)
-        label.text = SelectViewController.Character.cactus
+        label.text = Character.cactus
         return label
     }()
     let imageLabel2 = {
         let button = UIButton()
         button.setImage(UIImage._2_6, for: .normal)
-        button.tag = 1
+        button.tag = 2
         return button
     }()
     let imageLabel2Title = {
         let label = UILabel()
-        label.text = SelectViewController.Character.sun
+        label.text = Character.sun
         TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 13)
         return label
     }()
     let imageLabel3 = {
         let button = UIButton()
         button.setImage(UIImage._3_6, for: .normal)
-        button.tag = 2
+        button.tag = 3
         return button
     }()
     // 폰트, 보더칼라. 보더넓이, 텍스트얼라인먼트, 클리스투바운드 ,코너 래디어스
     
     let imageLabel3Title = {
         let label = UILabel()
-        label.text = SelectViewController.Character.star
+        label.text = Character.star
         TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 13)
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: TamagotchiTableViewCell.identifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
     }

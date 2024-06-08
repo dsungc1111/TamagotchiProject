@@ -28,12 +28,12 @@ extension UITableViewCell: ReuseProtocol {
 
 
 protocol MainThemeColorProtocol {
-    static var fixedColor:UIColor { get }
+    static var fixedColor: UIColor { get }
 }
 extension UIColor: MainThemeColorProtocol {
     static var fixedColor: UIColor {
         return UIColor(red: 245/255, green: 252/255, blue: 252/255, alpha: 1)
-        
+    
     }
 }
 

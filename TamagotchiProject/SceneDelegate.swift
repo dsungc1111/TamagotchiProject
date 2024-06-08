@@ -11,15 +11,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
+  
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        let tamagotchi = "타마고치"
         
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        
-        let vc = UINavigationController(rootViewController: SelectViewController())
-        vc.navigationBar.backgroundColor = UIColor(red: 245/255, green: 252/255, blue: 252/255, alpha: 1)
+        UserDefaults.standard.setValue(0, forKey: tamagotchi)
+        SelectViewController.changeTamaCount = 0
+        var vc = UINavigationController(rootViewController: SelectViewController())
+        let user = UserDefaults.standard.integer(forKey: tamagotchi)
+        if user == 0 {
+             vc = UINavigationController(rootViewController: SelectViewController())
+        } else {
+            vc = UINavigationController(rootViewController: MainViewController())
+        }
+       
+    
+    
+        vc.navigationBar.backgroundColor = UIColor.fixedColor
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }

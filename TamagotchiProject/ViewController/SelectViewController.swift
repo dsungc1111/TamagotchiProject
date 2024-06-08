@@ -9,13 +9,17 @@ import UIKit
 
 class SelectViewController: UIViewController {
 
+
     
-    
-    enum Character {
-        static var cactus = "따끔따끔 다마고치"
-        static var sun = "방실방실 다마고치"
-        static var star = "반짝반짝 다마고치"
+    enum Character: String {
+        case cactus = "따끔따끔 다마고치"
+        case sun = "방실방실 다마고치"
+        case star = "반짝반짝 다마고치"
     }
+    
+    static var tamagotchi = "타마고치"
+    static var changeTamaCount = 0
+    
     
     let cactus = Character.cactus
     let sun = Character.sun
@@ -23,12 +27,20 @@ class SelectViewController: UIViewController {
     
     let tableView = UITableView()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.fixedColor
         
-        navigationItem.title = "다마고치 선택하기"
+        if SelectViewController.changeTamaCount == 0 {
+            navigationItem.title = "다마고치 선택하기"
+        } else {
+            navigationItem.title = "다마고치 변경하기"
+        }
+        
+        
         configureHierarchy()
         configureLayout()
         tableView.delegate = self
@@ -43,18 +55,21 @@ class SelectViewController: UIViewController {
         let vc = TamagotchiViewController()
         
         switch sender.tag {
-        case 0 :
-            vc.mainLabel.text = cactus
+        case 1 :
+            vc.mainLabel.text = Character.cactus.rawValue
             vc.mainImage.image = UIImage._1_6
             vc.imageDescription.text = "\n\n저는 선인장 다마고치입니다. 키는 2cm, 몸무게는 150g이에요.\n성격은 소심하지만 마음은 따뜻해요.\n열심히 잘 먹고 클 자신은 있답니다\n반가워요 주인님!!!"
-        case 1:
-            vc.mainImage.image = UIImage._2_6
-            vc.mainLabel.text = sun
-            vc.imageDescription.text = "\n\n저는 방실방실 다마고치입니다. 키는 100km, 몸주게는 150톤이에용\n성격은 화끈하고 날라다닙니당~! \n열심히 잘 먹고 클 자신은 있답니당 방실방실!"
+            UserDefaults.standard.setValue(sender.tag, forKey: SelectViewController.tamagotchi)
         case 2:
+            vc.mainImage.image = UIImage._2_6
+            vc.mainLabel.text = Character.sun.rawValue
+            vc.imageDescription.text = "\n\n저는 방실방실 다마고치입니다. 키는 100km, 몸주게는 150톤이에용\n성격은 화끈하고 날라다닙니당~! \n열심히 잘 먹고 클 자신은 있답니당 방실방실!"
+            UserDefaults.standard.setValue(sender.tag, forKey: SelectViewController.tamagotchi)
+        case 3:
             vc.mainImage.image = UIImage._3_6
-            vc.mainLabel.text = star
+            vc.mainLabel.text = Character.star.rawValue
             vc.imageDescription.text = "\n\n얘는 설명이 없네요??"
+            UserDefaults.standard.setValue(sender.tag, forKey: SelectViewController.tamagotchi)
         default:
             break
         }

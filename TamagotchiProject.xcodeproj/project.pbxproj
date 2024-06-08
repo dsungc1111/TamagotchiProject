@@ -17,6 +17,7 @@
 		8B3E9CC72C12942F000D9D22 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B3E9CC62C12942F000D9D22 /* SnapKit */; };
 		8B3E9CCA2C12C8AC000D9D22 /* ReadyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3E9CC92C12C8AC000D9D22 /* ReadyTableViewCell.swift */; };
 		8B3E9CCC2C12DD78000D9D22 /* TamagotchiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3E9CCB2C12DD78000D9D22 /* TamagotchiViewController.swift */; };
+		8B3E9CCE2C1316D8000D9D22 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3E9CCD2C1316D8000D9D22 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		8B3E9CC32C129348000D9D22 /* ReuseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseProtocol.swift; sourceTree = "<group>"; };
 		8B3E9CC92C12C8AC000D9D22 /* ReadyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyTableViewCell.swift; sourceTree = "<group>"; };
 		8B3E9CCB2C12DD78000D9D22 /* TamagotchiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiViewController.swift; sourceTree = "<group>"; };
+		8B3E9CCD2C1316D8000D9D22 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				8B3E9CB52C12873D000D9D22 /* Assets.xcassets */,
 				8B3E9CB72C12873D000D9D22 /* LaunchScreen.storyboard */,
 				8B3E9CBA2C12873D000D9D22 /* Info.plist */,
+				8B3E9CCD2C1316D8000D9D22 /* MainViewController.swift */,
 			);
 			path = TamagotchiProject;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				8B3E9CCC2C12DD78000D9D22 /* TamagotchiViewController.swift in Sources */,
 				8B3E9CC42C129348000D9D22 /* ReuseProtocol.swift in Sources */,
 				8B3E9CAF2C12873B000D9D22 /* SceneDelegate.swift in Sources */,
+				8B3E9CCE2C1316D8000D9D22 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

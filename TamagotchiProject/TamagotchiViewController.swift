@@ -16,11 +16,7 @@ class TamagotchiViewController: UIViewController {
     }()
     var mainLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.layer.borderWidth = 0.5
-        label.textAlignment = .center
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 5
+        TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 16)
         return label
     }()
     let imageDescription = {
@@ -30,32 +26,27 @@ class TamagotchiViewController: UIViewController {
         text.textColor = .darkGray
         return text
     }()
-    let cancelbutton = {
+    lazy var cancelbutton = {
         let button = UIButton()
-        button.setTitle("취소", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.titleLabel?.textAlignment = .center
-        button.layer.cornerRadius = 5
+        configureButton(button: button, title: "취소하기")
         return button
     }()
-    let startButton = {
+    lazy var startButton = {
         let button = UIButton()
-        button.setTitle("시작하기", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.titleLabel?.textAlignment = .center
-        button.layer.cornerRadius = 5
+        configureButton(button: button, title: "시작하기")
         return button
     }()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 245/255, green: 252/255, blue: 252/255, alpha: 1)
+        view.backgroundColor = UIColor.fixedColor
         // Do any additional setup after loading the view.
         configureHierarchy()
         configureLayout()
         cancelbutton.addTarget(self, action: #selector(cancelbuttonTapped), for: .touchUpInside)
+        startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     override func viewDidAppear(_ animated: Bool) {
         imageDescription.layer.addBorder([.top], color: UIColor.darkGray, width: 1)
@@ -64,6 +55,20 @@ class TamagotchiViewController: UIViewController {
     
     @objc func cancelbuttonTapped() {
         dismiss(animated: true)
+    }
+    @objc func startButtonTapped() {
+        let vc = MainViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
+    
+    func configureButton(button: UIButton, title: String) {
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.borderWidth = 0.5
+        button.titleLabel?.textAlignment = .center
+        button.layer.cornerRadius = 5
     }
     
     func configureHierarchy() {

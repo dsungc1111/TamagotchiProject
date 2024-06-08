@@ -9,9 +9,16 @@ import UIKit
 import SnapKit
 
 
-class DamagotchiTableViewCell: UITableViewCell {
+class TamagotchiTableViewCell: UITableViewCell {
 
-  
+    static func configureTamagotchiLabel(label: UILabel, fontSize: CGFloat) {
+        label.font = .systemFont(ofSize: fontSize)
+        label.layer.borderColor = UIColor.borderColor.cgColor
+        label.layer.borderWidth = 0.5
+        label.textAlignment = .center
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 5
+    }
     
     let imageLabel1 = {
         let button = UIButton()
@@ -23,13 +30,8 @@ class DamagotchiTableViewCell: UITableViewCell {
     }()
     let imageLabel1Title = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
-        label.layer.borderColor = UIColor(red: 77/255, green: 106/255, blue: 120/255, alpha: 1).cgColor
-        label.layer.borderWidth = 0.5
-        label.text = "따끔따끔 다마고치"
-        label.textAlignment = .center
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 5
+        TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 13)
+        label.text = SelectViewController.Character.cactus
         return label
     }()
     let imageLabel2 = {
@@ -40,13 +42,8 @@ class DamagotchiTableViewCell: UITableViewCell {
     }()
     let imageLabel2Title = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
-        label.layer.borderColor = UIColor(red: 77/255, green: 106/255, blue: 120/255, alpha: 1).cgColor
-        label.layer.borderWidth = 0.5
-        label.text = "방실방실 다마고치"
-        label.textAlignment = .center
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 5
+        label.text = SelectViewController.Character.sun
+        TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 13)
         return label
     }()
     let imageLabel3 = {
@@ -55,20 +52,17 @@ class DamagotchiTableViewCell: UITableViewCell {
         button.tag = 2
         return button
     }()
+    // 폰트, 보더칼라. 보더넓이, 텍스트얼라인먼트, 클리스투바운드 ,코너 래디어스
+    
     let imageLabel3Title = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
-        label.layer.borderColor = UIColor(red: 77/255, green: 106/255, blue: 120/255, alpha: 1).cgColor
-        label.layer.borderWidth = 0.5
-        label.text = "반짝반짝 다마고치"
-        label.textAlignment = .center
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 5
+        label.text = SelectViewController.Character.star
+        TamagotchiTableViewCell.configureTamagotchiLabel(label: label, fontSize: 13)
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: DamagotchiTableViewCell.identifier)
+        super.init(style: style, reuseIdentifier: TamagotchiTableViewCell.identifier)
         configureHierarchy()
         configureLayout()
     }

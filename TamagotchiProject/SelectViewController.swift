@@ -9,21 +9,31 @@ import UIKit
 
 class SelectViewController: UIViewController {
 
+    
+    
+    enum Character {
+        static var cactus = "따끔따끔 다마고치"
+        static var sun = "방실방실 다마고치"
+        static var star = "반짝반짝 다마고치"
+    }
+    
+    let cactus = Character.cactus
+    let sun = Character.sun
+    let star = Character.star
+    
     let tableView = UITableView()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 245/255, green: 252/255, blue: 252/255, alpha: 1)
+        view.backgroundColor = UIColor.fixedColor
         
         navigationItem.title = "다마고치 선택하기"
         configureHierarchy()
         configureLayout()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(DamagotchiTableViewCell.self, forCellReuseIdentifier: DamagotchiTableViewCell.identifier)
+        tableView.register(TamagotchiTableViewCell.self, forCellReuseIdentifier: TamagotchiTableViewCell.identifier)
         tableView.register(ReadyTableViewCell.self, forCellReuseIdentifier: ReadyTableViewCell.identifier)
         
     }
@@ -34,16 +44,16 @@ class SelectViewController: UIViewController {
         
         switch sender.tag {
         case 0 :
-            vc.mainLabel.text = "따끔따끔 다마고치"
+            vc.mainLabel.text = cactus
             vc.mainImage.image = UIImage._1_6
             vc.imageDescription.text = "\n\n저는 선인장 다마고치입니다. 키는 2cm, 몸무게는 150g이에요.\n성격은 소심하지만 마음은 따뜻해요.\n열심히 잘 먹고 클 자신은 있답니다\n반가워요 주인님!!!"
         case 1:
             vc.mainImage.image = UIImage._2_6
-            vc.mainLabel.text = "방실방실 다마고치"
+            vc.mainLabel.text = sun
             vc.imageDescription.text = "\n\n저는 방실방실 다마고치입니다. 키는 100km, 몸주게는 150톤이에용\n성격은 화끈하고 날라다닙니당~! \n열심히 잘 먹고 클 자신은 있답니당 방실방실!"
         case 2:
             vc.mainImage.image = UIImage._3_6
-            vc.mainLabel.text = "반짝반짝 다마고치"
+            vc.mainLabel.text = star
             vc.imageDescription.text = "\n\n얘는 설명이 없네요??"
         default:
             break
@@ -89,7 +99,7 @@ extension SelectViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DamagotchiTableViewCell.identifier, for: indexPath) as? DamagotchiTableViewCell else { return DamagotchiTableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TamagotchiTableViewCell.identifier, for: indexPath) as? TamagotchiTableViewCell else { return TamagotchiTableViewCell() }
             
             
             cell.imageLabel1.addTarget(self, action: #selector(TamagotchiButtonTapped), for: .touchUpInside)

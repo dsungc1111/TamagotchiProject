@@ -30,22 +30,25 @@ class MainViewController: UIViewController {
     var waterTotalOfSun = 0.0
     var riceTotalOfStar = 0.0
     var waterTotalOfStar = 0.0
-    var level = 1
+    var lvCac = 1
+    var lvStar = 1
+    var lvSun = 1
     
     let selectedTamagotchi = {
         let view = UIImageView()
         let seleted = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
         
-        switch seleted{
-        case 1:
-            view.image = UIImage._1_1
-        case 2:
-            view.image = UIImage._2_1
-        case 3:
-            view.image = UIImage._3_1
-        default:
-            break
-        }
+       
+//        switch seleted{
+//        case 1:
+//            view.image = UIImage._1_1
+//        case 2:
+//            view.image = UIImage._2_1
+//        case 3:
+//            view.image = UIImage._3_1
+//        default:
+//            break
+//        }
         return view
     }()
     let selectedLabel = {
@@ -68,19 +71,10 @@ class MainViewController: UIViewController {
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
         return label
     }()
     let tamagotchiLevel = {
         let label = UILabel()
-        label.text = "LV1﹒밥알 0개﹒물방울 0개 "
         label.textColor = .darkGray
         return label
     }()
@@ -142,6 +136,20 @@ class MainViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "\(MainViewController.user!)님의 다마고치"
+        lvCac = UserDefaults.standard.integer(forKey: "lvCac")
+        riceTotalOfCactus = UserDefaults.standard.double(forKey: "riceCactus")
+        waterTotalOfCactus = UserDefaults.standard.double(forKey: "waterCactus")
+        
+        lvSun = UserDefaults.standard.integer(forKey: "lvSun")
+        riceTotalOfSun = UserDefaults.standard.double(forKey: "riceSun")
+        waterTotalOfSun = UserDefaults.standard.double(forKey: "waterSun")
+        
+        lvStar = UserDefaults.standard.integer(forKey: "lvStar")
+        riceTotalOfStar = UserDefaults.standard.double(forKey: "riceStar")
+        waterTotalOfStar = UserDefaults.standard.double(forKey: "waterStar")
+        
+        getWaterButtonTapped()
+        getRiceButtonTapped()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -161,41 +169,52 @@ class MainViewController: UIViewController {
         //선인장
         if seletedTamagotchi == 1 {
             growthOfCactusWithRice()
-            let lv = getLevelOfCactus(rice: riceTotalOfCactus, water: waterTotalOfCactus)
-            tamagotchiLevel.text = "Lv\(lv) 밥알\(Int(riceTotalOfCactus))개 물방울\(Int(waterTotalOfCactus))개"
+            lvCac = getLevelOfCactus(rice: riceTotalOfCactus, water: waterTotalOfCactus)
+            tamagotchiLevel.text = "Lv\(lvCac) 밥알\(Int(riceTotalOfCactus))개 물방울\(Int(waterTotalOfCactus))개"
         } else if seletedTamagotchi == 2 { // 태양
             
             growthOfSunWithRice()
-            let lv = getLevelOfSun(rice: riceTotalOfSun, water: waterTotalOfSun)
-            tamagotchiLevel.text = "Lv\(lv) 밥알\(Int(riceTotalOfSun))개 물방울\(Int(waterTotalOfSun))개"
+            lvSun = getLevelOfSun(rice: riceTotalOfSun, water: waterTotalOfSun)
+            tamagotchiLevel.text = "Lv\(lvSun) 밥알\(Int(riceTotalOfSun))개 물방울\(Int(waterTotalOfSun))개"
         } else { // 스타
             growthOfStarWithRice()
-            getLevelOfStar(rice: riceTotalOfStar, water: waterTotalOfStar)
-            tamagotchiLevel.text = "Lv\(level) 밥알\(Int(riceTotalOfStar))개 물방울\(Int(waterTotalOfStar))개"
+             lvStar = getLevelOfStar(rice: riceTotalOfStar, water: waterTotalOfStar)
+            tamagotchiLevel.text = "Lv\(lvStar) 밥알\(Int(riceTotalOfStar))개 물방울\(Int(waterTotalOfStar))개"
             
         }
-        
+        UserDefaults.standard.setValue(lvCac, forKey: "lvCac")
+        UserDefaults.standard.setValue(riceTotalOfCactus, forKey: "riceCactus")
+        UserDefaults.standard.setValue(lvSun, forKey: "lvSun")
+        UserDefaults.standard.setValue(riceTotalOfSun, forKey: "riceSun")
+        UserDefaults.standard.setValue(lvStar, forKey: "lvStar")
+        UserDefaults.standard.setValue(riceTotalOfStar, forKey: "riceStar")
     }
     @objc func getWaterButtonTapped() {
-        let aa = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
-        print(aa)
+        let image = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
         //선인장
-        if aa == 1 {
+        if image == 1 {
             growthOfCactusWithWater()
-            let aa = getLevelOfCactus(rice: riceTotalOfCactus, water: waterTotalOfCactus)
-            tamagotchiLevel.text = "Lv\(aa) 밥알\(Int(riceTotalOfCactus))개 물방울\(Int(waterTotalOfCactus))개"
-        } else if aa == 2 {
+            lvCac = getLevelOfCactus(rice: riceTotalOfCactus, water: waterTotalOfCactus)
+            tamagotchiLevel.text = "Lv\(lvCac) 밥알\(Int(riceTotalOfCactus))개 물방울\(Int(waterTotalOfCactus))개"
+        } else if image == 2 {
             // 태양
             growthOfSunWithWater()
-            let lv = getLevelOfSun(rice: riceTotalOfSun, water: waterTotalOfSun)
-            tamagotchiLevel.text = "Lv\(lv) 밥알\(Int(riceTotalOfSun))개 물방울\(Int(waterTotalOfSun))개"
+            lvSun = getLevelOfSun(rice: riceTotalOfSun, water: waterTotalOfSun)
+            tamagotchiLevel.text = "Lv\(lvSun) 밥알\(Int(riceTotalOfSun))개 물방울\(Int(waterTotalOfSun))개"
             
-        } else if aa == 3 {
+        } else if image == 3 {
             // 스타
             growthOfStarWithWater()
-            getLevelOfStar(rice: riceTotalOfStar, water: waterTotalOfStar)
-            tamagotchiLevel.text = "Lv\(level) 밥알\(Int(riceTotalOfStar))개 물방울\(Int(waterTotalOfStar))개"
+            lvStar = getLevelOfStar(rice: riceTotalOfStar, water: waterTotalOfStar)
+            tamagotchiLevel.text = "Lv\(lvStar) 밥알\(Int(riceTotalOfStar))개 물방울\(Int(waterTotalOfStar))개"
         }
+        UserDefaults.standard.setValue(lvCac, forKey: "lvCac")
+        UserDefaults.standard.setValue(waterTotalOfCactus, forKey: "waterCactus")
+        UserDefaults.standard.setValue(lvSun, forKey: "lvSun")
+        UserDefaults.standard.setValue(waterTotalOfSun, forKey: "waterSun")
+        UserDefaults.standard.setValue(lvStar, forKey: "lvStar")
+        UserDefaults.standard.setValue(waterTotalOfStar, forKey: "waterStar")
+        
         
     }
     
@@ -241,40 +260,40 @@ class MainViewController: UIViewController {
         switch total {
         case 0..<20:
             selectedTamagotchi.image = UIImage._1_1
-            level = 1
+            lvCac = 1
             
         case 20..<30:
             selectedTamagotchi.image = UIImage._1_2
-            level = 3
+            lvCac = 3
         case 30..<40:
             selectedTamagotchi.image = UIImage._1_3
-            level = 4
+            lvCac = 4
         case 40..<50:
             selectedTamagotchi.image = UIImage._1_4
-            level = 4
+            lvCac = 4
         case 50..<60:
             selectedTamagotchi.image = UIImage._1_5
-            level = 5
+            lvCac = 5
         case 60..<70:
             selectedTamagotchi.image = UIImage._1_6
-            level = 6
+            lvCac = 6
         case 70..<80:
             selectedTamagotchi.image = UIImage._1_7
-            level = 7
+            lvCac = 7
         case 80..<90:
             selectedTamagotchi.image = UIImage._1_8
-            level = 8
+            lvCac = 8
         case 90..<100:
             selectedTamagotchi.image = UIImage._1_9
-            level = 9
+            lvCac = 9
         case 100...:
             selectedTamagotchi.image = UIImage._1_9
-            level = 10
+            lvCac = 10
         default:
             break
         }
         
-        return level
+        return lvCac
         
     }
     
@@ -285,82 +304,81 @@ class MainViewController: UIViewController {
         switch total {
         case 0..<20:
             selectedTamagotchi.image = UIImage._2_1
-            level = 1
+            lvSun = 1
             
         case 20..<30:
             selectedTamagotchi.image = UIImage._2_2
-            level = 3
+            lvSun = 3
         case 30..<40:
             selectedTamagotchi.image = UIImage._2_3
-            level = 4
+            lvSun = 4
         case 40..<50:
             selectedTamagotchi.image = UIImage._2_4
-            level = 4
+            lvSun = 4
         case 50..<60:
             selectedTamagotchi.image = UIImage._2_5
-            level = 5
+            lvSun = 5
         case 60..<70:
             selectedTamagotchi.image = UIImage._2_6
-            level = 6
+            lvSun = 6
         case 70..<80:
             selectedTamagotchi.image = UIImage._2_7
-            level = 7
+            lvSun = 7
         case 80..<90:
             selectedTamagotchi.image = UIImage._2_8
-            level = 8
+            lvCac = 8
         case 90..<100:
             selectedTamagotchi.image = UIImage._2_9
-            level = 9
+            lvSun = 9
         case 100...:
             selectedTamagotchi.image = UIImage._2_9
-            level = 10
+            lvSun = 10
         default:
             break
         }
         
-        return level
+        return lvCac
         
     }
     
-    func getLevelOfStar(rice: Double, water: Double) {
+    func getLevelOfStar(rice: Double, water: Double) -> Int {
         let total = Int(rice/5 + water/2)
-       
         switch total {
         case 0..<20:
             selectedTamagotchi.image = UIImage._3_1
-            level = 1
+            lvStar = 1
             
         case 20..<30:
             selectedTamagotchi.image = UIImage._3_2
-            level = 3
+            lvStar = 3
         case 30..<40:
             selectedTamagotchi.image = UIImage._3_3
-            level = 4
+            lvStar = 4
         case 40..<50:
             selectedTamagotchi.image = UIImage._3_4
-            level = 4
+            lvStar = 4
         case 50..<60:
             selectedTamagotchi.image = UIImage._3_5
-            level = 5
+            lvStar = 5
         case 60..<70:
             selectedTamagotchi.image = UIImage._3_6
-            level = 6
+            lvStar = 6
         case 70..<80:
             selectedTamagotchi.image = UIImage._3_7
-            level = 7
+            lvStar = 7
         case 80..<90:
             selectedTamagotchi.image = UIImage._3_8
-            level = 8
+            lvStar = 8
         case 90..<100:
             selectedTamagotchi.image = UIImage._3_9
-            level = 9
+            lvCac = 9
         case 100...:
             selectedTamagotchi.image = UIImage._3_9
-            level = 10
+            lvStar = 10
         default:
             break
         }
-        
+        return lvStar
     }
     
     
@@ -425,39 +443,22 @@ class MainViewController: UIViewController {
 
 
 
+
+
 /*
- switch feeding.total {
- case 0..<20:
-     selectedTamagotchi.image = UIImage._1_1
-     tamagotchiLevel.text = "LV1﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 20..<30:
-     selectedTamagotchi.image = UIImage._1_2
-     tamagotchiLevel.text = "LV2﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 30..<40:
-     selectedTamagotchi.image = UIImage._1_3
-     tamagotchiLevel.text = "LV3﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 40..<50:
-     selectedTamagotchi.image = UIImage._1_4
-     tamagotchiLevel.text = "LV4﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 50..<60:
-     selectedTamagotchi.image = UIImage._1_5
-     tamagotchiLevel.text = "LV5﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 60..<70:
-     selectedTamagotchi.image = UIImage._1_6
-     tamagotchiLevel.text = "LV6﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 70..<80:
-     selectedTamagotchi.image = UIImage._1_7
-     tamagotchiLevel.text = "LV7﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 80..<90:
-     selectedTamagotchi.image = UIImage._1_8
-     tamagotchiLevel.text = "LV8﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 90..<100:
-     selectedTamagotchi.image = UIImage._1_9
-     tamagotchiLevel.text = "LV9﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- case 100...:
-     selectedTamagotchi.image = UIImage._1_9
-     tamagotchiLevel.text = "LV10﹒밥알 \(feeding.rice)개﹒물방울 \(feeding.waterdrop)개 "
- default:
-     break
- }
+ 물,
+ 
+ 저장해야할 것
+ 캐릭터 : 선인장, 선, 스타
+ 물 : 선인장 물, 선 물, 스타물
+ 밥 : 선인장 밥, 선밥, 스타밥
+ 
+ - 다마고치 변경시,
+ 캐릭터 변경(완료)
+ 캐릭터마다 물 밥 그대로
+ ---------------------------완료
+ - 데이터 초기화시
+ 체인지, 다마고찌 물 밥 캐릭터 다 초기화
+ 
+ 
  */

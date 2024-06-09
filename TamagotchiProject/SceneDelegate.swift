@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        UserDefaults.standard.setValue(0, forKey: tamagotchi)
-        SelectViewController.changeTamaCount = 0
+       // UserDefaults.standard.setValue(0, forKey: tamagotchi)
+       // SelectViewController.changeTamaCount = 0
         var vc = UINavigationController(rootViewController: SelectViewController())
         let user = UserDefaults.standard.integer(forKey: tamagotchi)
         if user == 0 {

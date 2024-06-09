@@ -73,7 +73,7 @@ class SelectViewController: UIViewController {
         default:
             break
         }
-        
+        print(UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi))
         present(vc, animated: true)
         
     }

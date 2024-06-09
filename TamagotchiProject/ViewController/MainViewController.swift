@@ -24,15 +24,19 @@ class MainViewController: UIViewController {
     var feedingCactus : Growth = Growth()
     var feedingSun: Growth = Growth()
     var feedingStar: Growth = Growth()
-    var riceTotal = 0.0
-    var waterTotal = 0.0
+    var riceTotalOfCactus = 0.0
+    var waterTotalOfCactus = 0.0
+    var riceTotalOfSun = 0.0
+    var waterTotalOfSun = 0.0
+    var riceTotalOfStar = 0.0
+    var waterTotalOfStar = 0.0
     var level = 1
     
     let selectedTamagotchi = {
         let view = UIImageView()
-        let seletedTamagotchi = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
+        let seleted = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
         
-        switch seletedTamagotchi {
+        switch seleted{
         case 1:
             view.image = UIImage._1_1
         case 2:
@@ -156,36 +160,41 @@ class MainViewController: UIViewController {
         let seletedTamagotchi = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
         //선인장
         if seletedTamagotchi == 1 {
-            selectedTamagotchi.image = UIImage._1_1
             growthOfCactusWithRice()
-            let aa = getLevelOfCactus(rice: riceTotal, water: waterTotal)
-            tamagotchiLevel.text = "Lv\(aa) 밥알\(Int(riceTotal))개 물방울\(Int(waterTotal))개"
-        } else if seletedTamagotchi == 2 {
-            // 태양
-            selectedTamagotchi.image = UIImage._2_1
-        } else {
-            // 스타
-            selectedTamagotchi.image = UIImage._3_1
+            let lv = getLevelOfCactus(rice: riceTotalOfCactus, water: waterTotalOfCactus)
+            tamagotchiLevel.text = "Lv\(lv) 밥알\(Int(riceTotalOfCactus))개 물방울\(Int(waterTotalOfCactus))개"
+        } else if seletedTamagotchi == 2 { // 태양
+            
+            growthOfSunWithRice()
+            let lv = getLevelOfSun(rice: riceTotalOfSun, water: waterTotalOfSun)
+            tamagotchiLevel.text = "Lv\(lv) 밥알\(Int(riceTotalOfSun))개 물방울\(Int(waterTotalOfSun))개"
+        } else { // 스타
+            growthOfStarWithRice()
+            getLevelOfStar(rice: riceTotalOfStar, water: waterTotalOfStar)
+            tamagotchiLevel.text = "Lv\(level) 밥알\(Int(riceTotalOfStar))개 물방울\(Int(waterTotalOfStar))개"
             
         }
         
     }
     @objc func getWaterButtonTapped() {
-        let seletedTamagotchi = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
-        
+        let aa = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
+        print(aa)
         //선인장
-        if seletedTamagotchi == 1 {
-            selectedTamagotchi.image = UIImage._1_1
+        if aa == 1 {
             growthOfCactusWithWater()
-            let aa = getLevelOfCactus(rice: riceTotal, water: waterTotal)
-            tamagotchiLevel.text = "Lv\(aa) 밥알\(Int(riceTotal))개 물방울\(Int(waterTotal))개"
-        } else if seletedTamagotchi == 2 {
+            let aa = getLevelOfCactus(rice: riceTotalOfCactus, water: waterTotalOfCactus)
+            tamagotchiLevel.text = "Lv\(aa) 밥알\(Int(riceTotalOfCactus))개 물방울\(Int(waterTotalOfCactus))개"
+        } else if aa == 2 {
             // 태양
-            selectedTamagotchi.image = UIImage._2_1
-        } else {
-            // 스타
-            selectedTamagotchi.image = UIImage._3_1
+            growthOfSunWithWater()
+            let lv = getLevelOfSun(rice: riceTotalOfSun, water: waterTotalOfSun)
+            tamagotchiLevel.text = "Lv\(lv) 밥알\(Int(riceTotalOfSun))개 물방울\(Int(waterTotalOfSun))개"
             
+        } else if aa == 3 {
+            // 스타
+            growthOfStarWithWater()
+            getLevelOfStar(rice: riceTotalOfStar, water: waterTotalOfStar)
+            tamagotchiLevel.text = "Lv\(level) 밥알\(Int(riceTotalOfStar))개 물방울\(Int(waterTotalOfStar))개"
         }
         
     }
@@ -193,16 +202,41 @@ class MainViewController: UIViewController {
     func growthOfCactusWithRice() {
         // 숫자가 있을 때 없을 때
         if let rice = getRiceTextField.text {
-            riceTotal += Double(rice) ?? 1.0
+            riceTotalOfCactus += Double(rice) ?? 1.0
+        }
+    }
+    func growthOfSunWithRice() {
+        if let rice = getRiceTextField.text {
+            riceTotalOfSun += Double(rice) ?? 1.0
+        }
+    }
+    func growthOfStarWithRice() {
+        if let rice = getRiceTextField.text {
+            riceTotalOfStar += Double(rice) ?? 1.0
         }
     }
     func growthOfCactusWithWater() {
         if let water = getWaterTextField.text {
-            waterTotal += Double(water) ?? 1.0
+            waterTotalOfCactus += Double(water) ?? 1.0
         }
     }
+    func growthOfSunWithWater() {
+        if let water = getWaterTextField.text {
+            waterTotalOfSun += Double(water) ?? 1.0
+        }
+    }
+    func growthOfStarWithWater() {
+        if let water = getWaterTextField.text {
+            waterTotalOfStar += Double(water) ?? 1.0
+        }
+    }
+    
+    
+    
+    
+    
     func getLevelOfCactus(rice: Double, water: Double) -> Int {
-        var total = Int(rice/5 + water/2)
+        let total = Int(rice/5 + water/2)
        
         switch total {
         case 0..<20:
@@ -240,14 +274,94 @@ class MainViewController: UIViewController {
             break
         }
         
-        return level 
+        return level
         
     }
     
     
+    func getLevelOfSun(rice: Double, water: Double) -> Int {
+        let total = Int(rice/5 + water/2)
+       
+        switch total {
+        case 0..<20:
+            selectedTamagotchi.image = UIImage._2_1
+            level = 1
+            
+        case 20..<30:
+            selectedTamagotchi.image = UIImage._2_2
+            level = 3
+        case 30..<40:
+            selectedTamagotchi.image = UIImage._2_3
+            level = 4
+        case 40..<50:
+            selectedTamagotchi.image = UIImage._2_4
+            level = 4
+        case 50..<60:
+            selectedTamagotchi.image = UIImage._2_5
+            level = 5
+        case 60..<70:
+            selectedTamagotchi.image = UIImage._2_6
+            level = 6
+        case 70..<80:
+            selectedTamagotchi.image = UIImage._2_7
+            level = 7
+        case 80..<90:
+            selectedTamagotchi.image = UIImage._2_8
+            level = 8
+        case 90..<100:
+            selectedTamagotchi.image = UIImage._2_9
+            level = 9
+        case 100...:
+            selectedTamagotchi.image = UIImage._2_9
+            level = 10
+        default:
+            break
+        }
+        
+        return level
+        
+    }
     
-    
-    
+    func getLevelOfStar(rice: Double, water: Double) {
+        let total = Int(rice/5 + water/2)
+       
+        switch total {
+        case 0..<20:
+            selectedTamagotchi.image = UIImage._3_1
+            level = 1
+            
+        case 20..<30:
+            selectedTamagotchi.image = UIImage._3_2
+            level = 3
+        case 30..<40:
+            selectedTamagotchi.image = UIImage._3_3
+            level = 4
+        case 40..<50:
+            selectedTamagotchi.image = UIImage._3_4
+            level = 4
+        case 50..<60:
+            selectedTamagotchi.image = UIImage._3_5
+            level = 5
+        case 60..<70:
+            selectedTamagotchi.image = UIImage._3_6
+            level = 6
+        case 70..<80:
+            selectedTamagotchi.image = UIImage._3_7
+            level = 7
+        case 80..<90:
+            selectedTamagotchi.image = UIImage._3_8
+            level = 8
+        case 90..<100:
+            selectedTamagotchi.image = UIImage._3_9
+            level = 9
+        case 100...:
+            selectedTamagotchi.image = UIImage._3_9
+            level = 10
+        default:
+            break
+        }
+        
+    }
     
     
     

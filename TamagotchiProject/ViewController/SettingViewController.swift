@@ -13,6 +13,16 @@ class SettingViewController: UIViewController {
     
     let tableView = UITableView()
     
+    let alertButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 10
+        button.isHidden = true
+        return button
+    }()
+     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.fixedColor
@@ -49,10 +59,16 @@ class SettingViewController: UIViewController {
     
     func configureHierarchy() {
         view.addSubview(tableView)
+        view.addSubview(alertButton)
     }
     func configureLayout() {
         tableView.snp.makeConstraints { make in
             make.horizontalEdges.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        alertButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(250)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(60)
+            make.height.equalTo(140)
         }
     }
     
@@ -73,17 +89,42 @@ class SettingViewController: UIViewController {
             present(vc, animated: true)
         case 3:
             let alert = UIAlertController(title: "데이터 초기화", message: "정말 다시 처음부터 시작하실 건가요?", preferredStyle: .alert)
-          
-            let yesButton = UIAlertAction(title: "yes", style: .default)
+            
+            let yesButton = UIAlertAction(title: "yes", style: .default) {_ in 
+                self.dataReset()
+                self.resetPage()
+            }
             let cancelButton = UIAlertAction(title: "cancel", style: .cancel)
-           
+            
             alert.addAction(cancelButton)
             alert.addAction(yesButton)
             
             present(alert, animated: true)
+            
         default:
             break
         }
+    }
+  
+    func resetPage() {
+        let vc = UINavigationController(rootViewController: SelectViewController())
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
+    func dataReset() {
+        UserDefaults.standard.setValue(0, forKey: SelectViewController.tamagotchi)
+         SelectViewController.changeTamaCount = 0
+        
+        UserDefaults.standard.setValue(0, forKey: "lvCac")
+        UserDefaults.standard.setValue(0, forKey: "waterCactus")
+        UserDefaults.standard.setValue(0, forKey: "lvSun")
+        UserDefaults.standard.setValue(0, forKey: "waterSun")
+        UserDefaults.standard.setValue(0, forKey: "lvStar")
+        UserDefaults.standard.setValue(0, forKey: "waterStar")
+        UserDefaults.standard.setValue(0, forKey: "riceCactus")
+        UserDefaults.standard.setValue(0, forKey: "riceSun")
+        UserDefaults.standard.setValue(0, forKey: "riceStar")
     }
 
 }

@@ -41,16 +41,16 @@ class ReSettingNameViewController: UIViewController {
         MainViewController.user = UserDefaults.standard.string(forKey: "user")
        
     }
-    @objc func backButtonTapped() {
-        dismiss(animated: true)
-    }
+//    @objc func backButtonTapped() {
+//        dismiss(animated: true)
+//    }
     func configureNavigationBar() {
 
         navigationItem.title = "사용자 이름 설정"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+//        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+//        navigationItem.leftBarButtonItem?.tintColor = .black
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
 

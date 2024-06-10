@@ -14,9 +14,6 @@ class NicknameViewController: UIViewController {
         nickname.placeholder = " 닉네임을 입력하세요"
 //        nickname.layer.borderWidth = 1
         nickname.layer.borderColor = UIColor.black.cgColor
-        var username: String {
-            return nickname.text ?? "Df"
-        }
         
         return nickname
     }()
@@ -45,6 +42,7 @@ class NicknameViewController: UIViewController {
     @objc func loginButtonTapped() {
         
         UserDefaults.standard.setValue(getNickname.text, forKey: "user")
+        MainViewController.user = UserDefaults.standard.string(forKey: "user")
         
         let vc = MainViewController()
         let nav = UINavigationController(rootViewController: vc)

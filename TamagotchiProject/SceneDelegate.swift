@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
        // UserDefaults.standard.setValue(0, forKey: tamagotchi)
        // SelectViewController.changeTamaCount = 0
+        UserDefaults.standard.setValue("", forKey: "user")
         var vc = UINavigationController(rootViewController: SelectViewController())
         let user = UserDefaults.standard.integer(forKey: tamagotchi)
         if user == 0 {
@@ -28,9 +29,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             vc = UINavigationController(rootViewController: MainViewController())
         }
        
-    
+        
     
         vc.navigationBar.backgroundColor = UIColor.fixedColor
+        vc.navigationBar.tintColor = .black
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }

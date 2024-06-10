@@ -37,18 +37,6 @@ class MainViewController: UIViewController {
     let selectedTamagotchi = {
         let view = UIImageView()
         let seleted = UserDefaults.standard.integer(forKey: SelectViewController.tamagotchi)
-        
-       
-//        switch seleted{
-//        case 1:
-//            view.image = UIImage._1_1
-//        case 2:
-//            view.image = UIImage._2_1
-//        case 3:
-//            view.image = UIImage._3_1
-//        default:
-//            break
-//        }
         return view
     }()
     let selectedLabel = {
@@ -83,12 +71,14 @@ class MainViewController: UIViewController {
         let rice = UITextField()
         rice.textAlignment = .center
         rice.placeholder = "밥주세용"
+        rice.keyboardType = .numberPad
         return rice
     }()
     let getWaterTextField = {
         let water = UITextField()
         water.textAlignment = .center
         water.placeholder = "물주세용"
+        water.keyboardType = .numberPad
         return water
     }()
     
@@ -124,13 +114,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
        
         view.backgroundColor = UIColor.fixedColor
-        navigationItem.title = "\(MainViewController.user!)님의 다마고치"
+        navigationItem.title = "\(String(describing: MainViewController.user))님의 다마고치"
        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"), style: .plain, target: self, action: #selector(settingButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .black
        
-        
-        
         configureHierarchy()
         configureLayout()
     }
@@ -159,9 +147,11 @@ class MainViewController: UIViewController {
     
     @objc func settingButtonTapped() {
         let vc = SettingViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        // let nav = UINavigationController(rootViewController: vc)
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.popViewController(animated: true)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func getRiceButtonTapped() {
@@ -440,6 +430,12 @@ class MainViewController: UIViewController {
     }
 }
 
+
+extension MainViewController: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+}
 
 
 

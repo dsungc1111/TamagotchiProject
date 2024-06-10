@@ -39,7 +39,7 @@ class SettingViewController: UIViewController {
     
     
     @objc func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func configureTableView() {
@@ -52,8 +52,9 @@ class SettingViewController: UIViewController {
     
     func configureNavigationBar() {
         navigationItem.title = "설정"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = .black
+        
     }
     
     
@@ -78,15 +79,13 @@ class SettingViewController: UIViewController {
         switch sender.tag {
         case 1:
             let vc = ReSettingNameViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
+           
         case 2:
-            let vc = UINavigationController(rootViewController: SelectViewController())
+            let vc = SelectViewController()
             vc.navigationItem.title = "다마고치 변경하기"
-            vc.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(vc, animated: true)
             SelectViewController.changeTamaCount += 1
-            present(vc, animated: true)
         case 3:
             let alert = UIAlertController(title: "데이터 초기화", message: "정말 다시 처음부터 시작하실 건가요?", preferredStyle: .alert)
             
@@ -115,12 +114,12 @@ class SettingViewController: UIViewController {
     func dataReset() {
         UserDefaults.standard.setValue(0, forKey: SelectViewController.tamagotchi)
          SelectViewController.changeTamaCount = 0
-        
-        UserDefaults.standard.setValue(0, forKey: "lvCac")
+        UserDefaults.standard.setValue("", forKey: "user")
+        UserDefaults.standard.setValue(1, forKey: "lvCac")
         UserDefaults.standard.setValue(0, forKey: "waterCactus")
-        UserDefaults.standard.setValue(0, forKey: "lvSun")
+        UserDefaults.standard.setValue(1, forKey: "lvSun")
         UserDefaults.standard.setValue(0, forKey: "waterSun")
-        UserDefaults.standard.setValue(0, forKey: "lvStar")
+        UserDefaults.standard.setValue(1, forKey: "lvStar")
         UserDefaults.standard.setValue(0, forKey: "waterStar")
         UserDefaults.standard.setValue(0, forKey: "riceCactus")
         UserDefaults.standard.setValue(0, forKey: "riceSun")

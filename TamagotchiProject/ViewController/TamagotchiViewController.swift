@@ -33,7 +33,7 @@ class TamagotchiViewController: UIViewController {
     }()
     lazy var startButton = {
         let button = UIButton()
-        if SelectViewController.changeTamaCount == 0 {
+        if Variable.changeTamaCount == 0 {
             configureButton(button: button, title: "시작하기")
         } else {
             configureButton(button: button, title: "변경하기")
@@ -46,7 +46,6 @@ class TamagotchiViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.fixedColor
-        // Do any additional setup after loading the view.
         configureHierarchy()
         configureLayout()
         cancelbutton.addTarget(self, action: #selector(cancelbuttonTapped), for: .touchUpInside)
@@ -61,7 +60,7 @@ class TamagotchiViewController: UIViewController {
         dismiss(animated: true)
     }
     @objc func startButtonTapped() {
-        if SelectViewController.changeTamaCount == 0 {
+        if Variable.changeTamaCount == 0 {
             let vc = (UINavigationController(rootViewController: NicknameViewController()))
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true)
@@ -123,28 +122,3 @@ class TamagotchiViewController: UIViewController {
 }
 
 
-extension CALayer {
-    func addBorder(_ arr_edge: [UIRectEdge], color: UIColor, width: CGFloat) {
-        for edge in arr_edge {
-            let border = CALayer()
-            switch edge {
-            case UIRectEdge.top:
-                border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: width)
-                break
-            case UIRectEdge.bottom:
-                border.frame = CGRect.init(x: 0, y: frame.height - width, width: frame.width, height: width)
-                break
-            case UIRectEdge.left:
-                border.frame = CGRect.init(x: 0, y: 0, width: width, height: frame.height)
-                break
-            case UIRectEdge.right:
-                border.frame = CGRect.init(x: frame.width - width, y: 0, width: width, height: frame.height)
-                break
-            default:
-                break
-            }
-            border.backgroundColor = color.cgColor;
-            self.addSublayer(border)
-        }
-    }
-}

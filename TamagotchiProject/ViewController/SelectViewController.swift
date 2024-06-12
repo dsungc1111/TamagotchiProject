@@ -8,33 +8,15 @@
 import UIKit
 
 class SelectViewController: UIViewController {
-
-
-    
-    enum Character: String {
-        case cactus = "따끔따끔 다마고치"
-        case sun = "방실방실 다마고치"
-        case star = "반짝반짝 다마고치"
-    }
-    
-    static var tamagotchi = "타마고치"
-    static var changeTamaCount = 0
-    
-    
-    let cactus = Character.cactus
-    let sun = Character.sun
-    let star = Character.star
     
     let tableView = UITableView()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.fixedColor
         
-        if SelectViewController.changeTamaCount == 0 {
+        if Variable.changeTamaCount == 0 {
             navigationItem.title = "다마고치 선택하기"
         } else {
             navigationItem.title = "다마고치 변경하기"
@@ -56,20 +38,20 @@ class SelectViewController: UIViewController {
         
         switch sender.tag {
         case 1 :
-            vc.mainLabel.text = Character.cactus.rawValue
+            vc.mainLabel.text = Constant.Character.cactus.rawValue
             vc.mainImage.image = UIImage._1_6
-            vc.imageDescription.text = "\n\n저는 선인장 다마고치입니다. 키는 2cm, 몸무게는 150g이에요.\n성격은 소심하지만 마음은 따뜻해요.\n열심히 잘 먹고 클 자신은 있답니다\n반가워요 주인님!!!"
-            UserDefaults.standard.setValue(sender.tag, forKey: SelectViewController.tamagotchi)
+            vc.imageDescription.text = Constant.DescriptionTamagotchi.cactus.rawValue
+            Variable.pickedTama = sender.tag
         case 2:
             vc.mainImage.image = UIImage._2_6
-            vc.mainLabel.text = Character.sun.rawValue
-            vc.imageDescription.text = "\n\n저는 방실방실 다마고치입니다. 키는 100km, 몸주게는 150톤이에용\n성격은 화끈하고 날라다닙니당~! \n열심히 잘 먹고 클 자신은 있답니당 방실방실!"
-            UserDefaults.standard.setValue(sender.tag, forKey: SelectViewController.tamagotchi)
+            vc.mainLabel.text = Constant.Character.sun.rawValue
+            vc.imageDescription.text = Constant.DescriptionTamagotchi.sun.rawValue
+            Variable.pickedTama = sender.tag
         case 3:
             vc.mainImage.image = UIImage._3_6
-            vc.mainLabel.text = Character.star.rawValue
-            vc.imageDescription.text = "\n\n얘는 설명이 없네요??"
-            UserDefaults.standard.setValue(sender.tag, forKey: SelectViewController.tamagotchi)
+            vc.mainLabel.text = Constant.Character.star.rawValue
+            vc.imageDescription.text = Constant.DescriptionTamagotchi.star.rawValue
+            Variable.pickedTama = sender.tag
         default:
             break
         }
@@ -119,8 +101,6 @@ extension SelectViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageLabel1.addTarget(self, action: #selector(TamagotchiButtonTapped), for: .touchUpInside)
             cell.imageLabel2.addTarget(self, action: #selector(TamagotchiButtonTapped), for: .touchUpInside)
             cell.imageLabel3.addTarget(self, action: #selector(TamagotchiButtonTapped), for: .touchUpInside)
-            
-            
             
            return cell
         } else {

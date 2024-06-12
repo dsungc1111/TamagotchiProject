@@ -14,15 +14,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let tamagotchi = "타마고치"
+        
         
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-       // UserDefaults.standard.setValue(0, forKey: tamagotchi)
-       // SelectViewController.changeTamaCount = 0
-        UserDefaults.standard.setValue("", forKey: "user")
+     
+//        UserDefaults.standard.setValue(0, forKey: Variable.tamagotchi)
         var vc = UINavigationController(rootViewController: SelectViewController())
-        let user = UserDefaults.standard.integer(forKey: tamagotchi)
+        let user = Variable.pickedTama
         if user == 0 {
              vc = UINavigationController(rootViewController: SelectViewController())
         } else {

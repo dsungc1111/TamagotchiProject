@@ -9,8 +9,6 @@ import UIKit
 
 class ReSettingNameViewController: UIViewController {
 
-    
-    
     let nameSetting = {
         let name = UITextField()
         name.placeholder = UserDefaults.standard.string(forKey: "user")
@@ -37,20 +35,16 @@ class ReSettingNameViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-         UserDefaults.standard.setValue(nameSetting.text, forKey: "user")
-        MainViewController.user = UserDefaults.standard.string(forKey: "user")
-       
+        Variable.user = nameSetting.text ?? "d"
+//        Variable.user = UserDefaults.standard.string(forKey: "user") ?? <#default value#>
+//       
     }
-//    @objc func backButtonTapped() {
-//        dismiss(animated: true)
-//    }
+
     func configureNavigationBar() {
 
         navigationItem.title = "사용자 이름 설정"
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-//        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
-//        navigationItem.leftBarButtonItem?.tintColor = .black
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
 

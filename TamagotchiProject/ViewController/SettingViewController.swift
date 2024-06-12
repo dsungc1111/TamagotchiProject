@@ -52,7 +52,6 @@ class SettingViewController: UIViewController {
     
     func configureNavigationBar() {
         navigationItem.title = "설정"
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = .black
         
     }
@@ -85,11 +84,11 @@ class SettingViewController: UIViewController {
             let vc = SelectViewController()
             vc.navigationItem.title = "다마고치 변경하기"
             navigationController?.pushViewController(vc, animated: true)
-            SelectViewController.changeTamaCount += 1
+            Variable.changeTamaCount += 1
         case 3:
             let alert = UIAlertController(title: "데이터 초기화", message: "정말 다시 처음부터 시작하실 건가요?", preferredStyle: .alert)
             
-            let yesButton = UIAlertAction(title: "yes", style: .default) {_ in 
+            let yesButton = UIAlertAction(title: "yes", style: .default) { _ in
                 self.dataReset()
                 self.resetPage()
             }
@@ -112,20 +111,25 @@ class SettingViewController: UIViewController {
     }
     
     func dataReset() {
-        UserDefaults.standard.setValue(0, forKey: SelectViewController.tamagotchi)
-         SelectViewController.changeTamaCount = 0
-        UserDefaults.standard.setValue("", forKey: "user")
-        UserDefaults.standard.setValue(1, forKey: "lvCac")
-        UserDefaults.standard.setValue(0, forKey: "waterCactus")
-        UserDefaults.standard.setValue(1, forKey: "lvSun")
-        UserDefaults.standard.setValue(0, forKey: "waterSun")
-        UserDefaults.standard.setValue(1, forKey: "lvStar")
-        UserDefaults.standard.setValue(0, forKey: "waterStar")
-        UserDefaults.standard.setValue(0, forKey: "riceCactus")
-        UserDefaults.standard.setValue(0, forKey: "riceSun")
-        UserDefaults.standard.setValue(0, forKey: "riceStar")
-    }
+        Variable.pickedTama = 0
+        Variable.changeTamaCount = 0
+        
+        Variable.lvCac = 1
+        Variable.lvStar = 1
+        Variable.lvSun = 1
 
+        
+        Variable.riceTotalOfCactus = 0
+        Variable.riceTotalOfSun = 0
+        Variable.riceTotalOfStar = 0
+        Variable.waterTotalOfSun = 0
+        Variable.waterTotalOfStar = 0
+        Variable.waterTotalOfCactus = 0
+        
+        
+        
+    
+    }
 }
 
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -137,13 +141,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell else { return SettingTableViewCell() }
         
-        
         switch indexPath.row {
         case 0:
             cell.nameSetting.setImage(UIImage(systemName: "pencil"), for: .normal)
             cell.nameSetting.setTitle(" 내 이름 설정하기", for: .normal)
             cell.nameSetting.tag = 1
-            cell.userDetail.text = MainViewController.user
+            cell.userDetail.text = Variable.user
             
         case 1:
             cell.nameSetting.setImage(UIImage(systemName: "moon.fill"), for: .normal)

@@ -22,6 +22,9 @@
 		8B3E9CD32C140B29000D9D22 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3E9CD22C140B29000D9D22 /* SettingViewController.swift */; };
 		8B3E9CD72C14278B000D9D22 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3E9CD62C14278B000D9D22 /* SettingTableViewCell.swift */; };
 		8B3E9CD92C143BFD000D9D22 /* ReSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3E9CD82C143BFD000D9D22 /* ReSettingNameViewController.swift */; };
+		8BD646CC2C180F7D001819B5 /* Enum_Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD646CB2C180F7D001819B5 /* Enum_Constant.swift */; };
+		8BD6474D2C197531001819B5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD6474C2C197531001819B5 /* CALayer+Extension.swift */; };
+		8BD647502C1975B9001819B5 /* Enum_Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD6474F2C1975B9001819B5 /* Enum_Variable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,9 @@
 		8B3E9CD22C140B29000D9D22 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		8B3E9CD62C14278B000D9D22 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		8B3E9CD82C143BFD000D9D22 /* ReSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReSettingNameViewController.swift; sourceTree = "<group>"; };
+		8BD646CB2C180F7D001819B5 /* Enum_Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum_Constant.swift; sourceTree = "<group>"; };
+		8BD6474C2C197531001819B5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		8BD6474F2C1975B9001819B5 /* Enum_Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum_Variable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +80,10 @@
 		8B3E9CAB2C12873B000D9D22 /* TamagotchiProject */ = {
 			isa = PBXGroup;
 			children = (
-				8B3E9CD52C142192000D9D22 /* UITableViewCell */,
+				8BD6474E2C1975AA001819B5 /* Enum */,
+				8BD6474B2C19751E001819B5 /* Extension */,
 				8B3E9CCF2C13E8AB000D9D22 /* ViewController */,
+				8B3E9CD52C142192000D9D22 /* UITableViewCell */,
 				8B3E9CC22C129335000D9D22 /* Protocol */,
 				8B3E9CAC2C12873B000D9D22 /* AppDelegate.swift */,
 				8B3E9CAE2C12873B000D9D22 /* SceneDelegate.swift */,
@@ -115,6 +123,23 @@
 				8B3E9CD62C14278B000D9D22 /* SettingTableViewCell.swift */,
 			);
 			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		8BD6474B2C19751E001819B5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8BD6474C2C197531001819B5 /* CALayer+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		8BD6474E2C1975AA001819B5 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				8BD646CB2C180F7D001819B5 /* Enum_Constant.swift */,
+				8BD6474F2C1975B9001819B5 /* Enum_Variable.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,11 +221,14 @@
 				8B3E9CD72C14278B000D9D22 /* SettingTableViewCell.swift in Sources */,
 				8B3E9CC12C129242000D9D22 /* TamagotchiTableViewCell.swift in Sources */,
 				8B3E9CB12C12873B000D9D22 /* SelectViewController.swift in Sources */,
+				8BD647502C1975B9001819B5 /* Enum_Variable.swift in Sources */,
+				8BD646CC2C180F7D001819B5 /* Enum_Constant.swift in Sources */,
 				8B3E9CAD2C12873B000D9D22 /* AppDelegate.swift in Sources */,
 				8B3E9CCA2C12C8AC000D9D22 /* ReadyTableViewCell.swift in Sources */,
 				8B3E9CCC2C12DD78000D9D22 /* TamagotchiViewController.swift in Sources */,
 				8B3E9CD32C140B29000D9D22 /* SettingViewController.swift in Sources */,
 				8B3E9CC42C129348000D9D22 /* ReuseProtocol.swift in Sources */,
+				8BD6474D2C197531001819B5 /* CALayer+Extension.swift in Sources */,
 				8B3E9CD12C13E8C0000D9D22 /* MainViewController.swift in Sources */,
 				8B3E9CAF2C12873B000D9D22 /* SceneDelegate.swift in Sources */,
 				8B3E9CCE2C1316D8000D9D22 /* NicknameViewController.swift in Sources */,

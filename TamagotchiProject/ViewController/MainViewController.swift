@@ -11,8 +11,6 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    
- 
     let selectedTamagotchi = {
         let view = UIImageView()
         let seleted = UserDefaults.standard.integer(forKey: Variable.tamagotchi)
@@ -44,44 +42,31 @@ class MainViewController: UIViewController {
     }()
     
     let getRiceTextField = {
-        let rice = UITextField()
-        rice.textAlignment = .center
+        let rice = feedingTextField()
         rice.placeholder = "밥주세용"
-        rice.keyboardType = .numberPad
         return rice
     }()
     let getWaterTextField = {
-        let water = UITextField()
-        water.textAlignment = .center
+        let water = feedingTextField()
         water.placeholder = "물주세용"
-        water.keyboardType = .numberPad
         return water
     }()
     
-    
     lazy var getRiceButton = {
-        let button = UIButton()
+        let button = TamagotchiProject.configureButton()
         button.setImage(UIImage(systemName: "leaf.circle"), for: .normal)
-        self.configureButton(button: button, title: "밥먹기")
+        button.setTitle("밥먹기", for: .normal)
         button.addTarget(self, action: #selector(getRiceButtonTapped), for: .touchUpInside)
         return button
     }()
     lazy var getWaterButton = {
-        let button = UIButton()
+        let button = TamagotchiProject.configureButton()
         button.setImage(UIImage(systemName: "drop.circle"), for: .normal)
-        self.configureButton(button: button, title: "물먹기")
+        button.setTitle("물먹기", for: .normal)
         button.addTarget(self, action: #selector(getWaterButtonTapped), for: .touchUpInside)
+        
         return button
     }()
-    
-    
-    func configureButton(button: UIButton, title: String) {
-        button.tintColor = .darkGray
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.darkGray, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.layer.cornerRadius = 10
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +78,7 @@ class MainViewController: UIViewController {
         
         configureHierarchy()
         configureLayout()
+        keyboardAppear()
     }
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "\(Variable.user)님의 다마고치"
@@ -105,6 +91,19 @@ class MainViewController: UIViewController {
         getWaterTextField.layer.addBorder([.bottom], color: UIColor.darkGray, width: 1)
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height/2
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     @objc func settingButtonTapped() {
         let vc = SettingViewController()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -114,48 +113,67 @@ class MainViewController: UIViewController {
     }
     
     @objc func getRiceButtonTapped() {
-        
-        if Variable.pickedTama == 1 {
-            let growRice = amountOfRice(riceTotal: Variable.riceTotalOfCactus)
-            Variable.riceTotalOfCactus = growRice
-
-            Variable.lvCac = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfCactus, water: Variable.waterTotalOfCactus)
-            tamagotchiLevel.text = "Lv\(Variable.lvCac) "
-        } else if Variable.pickedTama == 2 {
-            let growRice = amountOfRice(riceTotal: Variable.riceTotalOfSun)
-            Variable.riceTotalOfSun = growRice
-            Variable.lvSun = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfSun, water: Variable.waterTotalOfSun)
-            tamagotchiLevel.text = "Lv\(Variable.lvSun) "
-        } else if Variable.pickedTama == 3 {
-            let growRice = amountOfRice(riceTotal: Variable.riceTotalOfStar)
-            Variable.riceTotalOfStar = growRice
-            Variable.lvStar = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfStar, water: Variable.waterTotalOfStar)
-            tamagotchiLevel.text = "Lv\(Variable.lvStar) "
-            
+        let number = Int(getRiceTextField.text ?? "0") ?? 100
+        if getRiceTextField.text == "" || number < 100 {
+            if Variable.pickedTama == 1 {
+                let growRice = amountOfRice(riceTotal: Variable.riceTotalOfCactus)
+                Variable.riceTotalOfCactus = growRice
+                Variable.lvCac = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfCactus, water: Variable.waterTotalOfCactus)
+                tamagotchiLevel.text = "Lv\(Variable.lvCac) "
+            } else if Variable.pickedTama == 2 {
+                let growRice = amountOfRice(riceTotal: Variable.riceTotalOfSun)
+                Variable.riceTotalOfSun = growRice
+                Variable.lvSun = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfSun, water: Variable.waterTotalOfSun)
+                tamagotchiLevel.text = "Lv\(Variable.lvSun) "
+            } else if Variable.pickedTama == 3 {
+                let growRice = amountOfRice(riceTotal: Variable.riceTotalOfStar)
+                Variable.riceTotalOfStar = growRice
+                Variable.lvStar = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfStar, water: Variable.waterTotalOfStar)
+                tamagotchiLevel.text = "Lv\(Variable.lvStar) "
+            }
+            tamagotchiLevel.text! += "밥알\(Int(Variable.riceTotalOfCactus)-1)개 물방울\(Int(Variable.waterTotalOfCactus)-1)개"
+        } else {
+            getRiceTextField.text = ""
+            getRiceTextField.placeholder = "다시 ㄱ"
         }
-        
-        tamagotchiLevel.text! += "밥알\(Int(Variable.riceTotalOfCactus))개 물방울\(Int(Variable.waterTotalOfCactus))개"
     }
+    
     @objc func getWaterButtonTapped() {
-        if Variable.pickedTama == 1 {
-
-            let growWater = amountOfWater(waterTotal: Variable.waterTotalOfCactus)
-            Variable.waterTotalOfCactus = growWater
-            Variable.lvCac = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfCactus, water: Variable.waterTotalOfCactus)
-            tamagotchiLevel.text = "Lv\(Variable.lvCac) 밥알\(Int(Variable.riceTotalOfCactus))개 물방울\(Int(Variable.waterTotalOfCactus))개"
-        } else if Variable.pickedTama == 2 {
-            let growWater = amountOfWater(waterTotal: Variable.waterTotalOfSun)
-            Variable.waterTotalOfSun = growWater
-            Variable.lvSun = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfSun, water: Variable.waterTotalOfSun)
-            tamagotchiLevel.text = "Lv\(Variable.lvSun) 밥알\(Int(Variable.riceTotalOfSun))개 물방울\(Int(Variable.waterTotalOfSun))개"
-            
-        } else if Variable.pickedTama == 3 {
-            let growWater = amountOfWater(waterTotal: Variable.waterTotalOfStar)
-            Variable.waterTotalOfStar = growWater
-            Variable.lvStar = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfStar, water: Variable.waterTotalOfStar)
-            tamagotchiLevel.text = "Lv\(Variable.lvStar) 밥알\(Int(Variable.riceTotalOfStar))개 물방울\(Int(Variable.waterTotalOfStar))개"
+        let number = Int(getWaterTextField.text ?? "0") ?? 50
+        //number에 대한 설명
+        // 1. 빈칸일 때 > "0" 으로 할당시켜서 number가 0이 되게 => 무조건 if문 조건 성립
+        // 2. 숫자일 때는 if문 조건에 따라
+        // 3. 문자일 때는 getWaterTextfield안의 내용자체가 있기에 nil이 아님
+        // 이 때 Int를 감싸줫기에 nil이 나오는데 nil일때 100을 할당시켜주면 아래 if문 조건 성립 x
+        // 바로 else문 조건 이행하게 함.
+        if getWaterTextField.text == "" || number < 50 {
+            if Variable.pickedTama == 1 {
+                let growWater = amountOfWater(waterTotal: Variable.waterTotalOfCactus)
+                Variable.waterTotalOfCactus = growWater
+                Variable.lvCac = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfCactus, water: Variable.waterTotalOfCactus)
+                tamagotchiLevel.text = "Lv\(Variable.lvCac)"
+            } else if Variable.pickedTama == 2 {
+                let growWater = amountOfWater(waterTotal: Variable.waterTotalOfSun)
+                Variable.waterTotalOfSun = growWater
+                Variable.lvSun = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfSun, water: Variable.waterTotalOfSun)
+                tamagotchiLevel.text = "Lv\(Variable.lvSun)"
+            } else if Variable.pickedTama == 3 {
+                let growWater = amountOfWater(waterTotal: Variable.waterTotalOfStar)
+                Variable.waterTotalOfStar = growWater
+                Variable.lvStar = getLevelImage(tamagotchi: Variable.pickedTama, rice: Variable.riceTotalOfStar, water: Variable.waterTotalOfStar)
+                tamagotchiLevel.text = "Lv\(Variable.lvStar)"
+            }
+            tamagotchiLevel.text! += "밥알\(Int(Variable.riceTotalOfCactus)-1)개 물방울\(Int(Variable.waterTotalOfCactus)-1)개"
+        } else {
+            getWaterTextField.text = ""
+            getWaterTextField.placeholder = "다시 ㄱ"
         }
     }
+    func keyboardAppear() {
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
+
     
     func amountOfRice(riceTotal: Double) -> Double  {
         var total = riceTotal
@@ -168,7 +186,7 @@ class MainViewController: UIViewController {
     func amountOfWater(waterTotal: Double) -> Double  {
         var total = waterTotal
         if let water = getWaterTextField.text {
-            total = waterTotal + (Double(water) ?? 1.0)
+                total = waterTotal + (Double(water) ?? 1.0)
         }
         return total
     }
@@ -181,12 +199,10 @@ class MainViewController: UIViewController {
             level = 1
             let img = UIImage(named: "\(tamagotchi)-\(level)")
             selectedTamagotchi.image = img
-            
         case 20..<30:
             level = 2
             let img = UIImage(named: "\(tamagotchi)-\(level)")
             selectedTamagotchi.image = img
-           
         case 30..<40:
             level = 3
             let img = UIImage(named: "\(tamagotchi)-\(level)")

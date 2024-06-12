@@ -40,9 +40,6 @@ class NicknameViewController: UIViewController {
     }
     
     @objc func loginButtonTapped() {
-//        
-//        UserDefaults.standard.setValue(getNickname.text, forKey: "user")
-//        MainViewController.user = UserDefaults.standard.string(forKey: "user")
         Variable.user = getNickname.text ?? "D"
         let vc = MainViewController()
         let nav = UINavigationController(rootViewController: vc)

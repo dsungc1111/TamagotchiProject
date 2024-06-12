@@ -35,9 +35,7 @@ class ReSettingNameViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        Variable.user = nameSetting.text ?? "d"
-//        Variable.user = UserDefaults.standard.string(forKey: "user") ?? <#default value#>
-//       
+        Variable.user = nameSetting.text ?? "d"       
     }
 
     func configureNavigationBar() {
